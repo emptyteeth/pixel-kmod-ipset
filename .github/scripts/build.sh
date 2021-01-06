@@ -130,13 +130,13 @@ dobuild() {
 
 ##################### Main engines engaged #####################
 
-#set targets
-#    "b1c1-11.0.0_r0.28"
+#set targets  
 ktarget=(
     "redbull-11.0.0_r0.47"
     "sunfish-11.0.0_r0.45"
     "floral-11.0.0_r0.44"
     "bonito-11.0.0_r0.43"
+    "b1c1-11.0.0_r0.42"
     "wahoo-11.0.0_r0.34"
     "marlin-10.0.0_r0.23"
 )
