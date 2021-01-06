@@ -1,0 +1,50 @@
+name: build module
+on:
+  push:
+    paths:
+    - '.github/scripts/**'
+
+jobs:
+  ahhhhh:
+    if: "contains(github.event.head_commit.message, '[ci run]')"
+    env:
+      TOOLCHAIN: /home/runner/toolchain
+      KSOURCE: /home/runner/ksource
+    runs-on: ubuntu-latest
+    steps:
+      - name: rebuild trigger
+        if: "contains(github.event.head_commit.message, '[rebuild]')"
+        run: echo "REBUILD=yes" >> $GITHUB_ENV
+          
+      - name: checkout action
+        uses: actions/checkout@v2
+        with:
+          path: action
+
+      - name: checkout prebuild
+        uses: actions/checkout@v2
+        with:
+          path: prebuild
+          ref: prebuild
+
+      - name: cache toolchain
+        id: toolchain
+        uses: actions/cache@v2
+        with:
+          path: /home/runner/toolchain
+          key: toolchain-cache
+
+      - name: install toolchain
+        if: steps.toolchain.outputs.cache-hit != 'true'
+        run: action/toolchain.sh
+      
+      - name: cache ksource
+        id: ksource
+        uses: actions/cache@v2
+        with:
+          path: /home/runner/ksource
+          key: ksource-cache2
+
+      - name: build
+        run: action/main.sh
+
