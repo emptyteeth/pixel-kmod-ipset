@@ -38,5 +38,5 @@ jobs:
           key: ksource-cache2
 
       - name: build
-        run: .github/scripts/main.sh
+        run: .github/scripts/build.sh
 
