@@ -1,8 +1,8 @@
 name: build module
 on:
   push:
-    paths:
-    - '.github/scripts/**'
+    barnches:
+    - pre-compiled
 
 jobs:
   ahhhhh:
@@ -15,17 +15,9 @@ jobs:
       - name: rebuild trigger
         if: "contains(github.event.head_commit.message, '[rebuild]')"
         run: echo "REBUILD=yes" >> $GITHUB_ENV
-          
+
       - name: checkout action
         uses: actions/checkout@v2
-        with:
-          path: action
-
-      - name: checkout prebuild
-        uses: actions/checkout@v2
-        with:
-          path: prebuild
-          ref: prebuild
 
       - name: cache toolchain
         id: toolchain
@@ -36,7 +28,7 @@ jobs:
 
       - name: install toolchain
         if: steps.toolchain.outputs.cache-hit != 'true'
-        run: action/toolchain.sh
+        run: .github/scripts/toolchain.sh
       
       - name: cache ksource
         id: ksource
@@ -46,5 +38,5 @@ jobs:
           key: ksource-cache2
 
       - name: build
-        run: action/main.sh
+        run: .github/scripts/main.sh
 

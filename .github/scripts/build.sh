@@ -54,17 +54,15 @@ dobuild() {
     git -C $KSOURCE checkout ${ktag}
 
     #set build flags and env
+    export LD_LIBRARY_PATH="$TOOLCHAIN/clang/lib64"
+    export DTC_EXT="$TOOLCHAIN/dtc/dtc"
     #for 4.14 4.19
     if [ $kversion -eq 4 ] && [ $kpatchlevel -ge 14 ] ; then
-        export LD_LIBRARY_PATH="$TOOLCHAIN/clang/lib64"
-        export DTC_EXT="$TOOLCHAIN/dtc/dtc"
         export PATH="$TOOLCHAIN/clang/bin:$TOOLCHAIN/aarch64/bin:$TOOLCHAIN/arm/bin:$PATH"
         buildflags="CC=clang LD=ld.lld CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE_COMPAT=arm-linux-androideabi- NM=llvm-nm OBJCOPY=llvm-objcopy"
     fi
     #for 4.4 4.9
     if [ $kversion -eq 4 ] && [ $kpatchlevel -lt 14 ] ; then
-        export LD_LIBRARY_PATH="$TOOLCHAIN/clang/lib64"
-        export DTC_EXT="$TOOLCHAIN/dtc/dtc"
         export PATH="$TOOLCHAIN/clang/bin:$TOOLCHAIN/aarch64/bin:$TOOLCHAIN/arm/bin:$PATH"
         buildflags="CC=clang CLANG_TRIPLE=aarch64-linux-gnu-"
     fi
@@ -93,7 +91,6 @@ dobuild() {
     #defconfig
     echo "###make ${device}_defconfig"
     $build ${device}_defconfig
-
     #get dirty
     echo -e "CONFIG_IP_SET=m\nCONFIG_IP_SET_HASH_NET=m\nCONFIG_IP_SET_MAX=256\nCONFIG_NETFILTER_XT_SET=m" >>$KSOURCE/out/.config
     $build olddefconfig
@@ -126,7 +123,6 @@ dobuild() {
         if ! aarch64-linux-android-strip -d $ko ;then echo "strip $ko failed" && return ;fi
         if ! cp $ko $outdir/ ;then echo "copy $ko failed" && return ;fi
     done
-    unset ko
     #clean ouput dir and make a count
     rm -rf $KSOURCE/out
     let count++
@@ -135,12 +131,12 @@ dobuild() {
 ##################### Main engines engaged #####################
 
 #set targets
+#    "b1c1-11.0.0_r0.28"
 ktarget=(
-    "redbull-11.0.0_r0.33"
-    "sunfish-11.0.0_r0.31"
-    "floral-11.0.0_r0.30"
-    "bonito-11.0.0_r0.29"
-    "b1c1-11.0.0_r0.28"
+    "redbull-11.0.0_r0.47"
+    "sunfish-11.0.0_r0.45"
+    "floral-11.0.0_r0.44"
+    "bonito-11.0.0_r0.43"
     "wahoo-11.0.0_r0.34"
     "marlin-10.0.0_r0.23"
 )
