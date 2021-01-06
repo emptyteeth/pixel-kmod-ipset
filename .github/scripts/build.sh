@@ -41,7 +41,7 @@ dobuild() {
 
     #check if exist
     outdir=$device/$kfullversion
-    if [ -d $outdir ] && [ $REBUILD != "yes" ] ; then
+    if [ -d $outdir ] && [ "$REBUILD" != "yes" ] ; then
         echo "###$device-$kfullversion existed, skip"
         return
     fi
