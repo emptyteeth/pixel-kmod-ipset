@@ -133,10 +133,15 @@ dobuild() {
 #set targets  
 ktarget=(
     "redbull-11.0.0_r0.47"
+    "redbull-11.0.0_r0.66"
     "sunfish-11.0.0_r0.45"
+    "sunfish-11.0.0_r0.64"
     "floral-11.0.0_r0.44"
+    "floral-11.0.0_r0.62"
     "bonito-11.0.0_r0.43"
+    "bonito-11.0.0_r0.60"
     "b1c1-11.0.0_r0.42"
+    "b1c1-11.0.0_r0.58"
     "wahoo-11.0.0_r0.34"
     "marlin-10.0.0_r0.23"
 )
