@@ -53,7 +53,7 @@ kmodinstall(){
   ui_print "kernel: $(uname -a)"
   giturl="https://github.com/emptyteeth/pixel-kmod-ipset"
   gitbranch="pre-compiled"
-  $icurl -sI ${giturl}/tree/${gitbranch}/${kname}/${mykver} | grep "status: 200 OK" >/dev/null 2>&1
+  $icurl -sI -o /dev/null -w "%{http_code}" ${giturl}/tree/${gitbranch}/${kname}/${mykver} | grep "200" >/dev/null 2>&1
   iferr "not available for kernel version ${mykver}"
 
   #download kmod
