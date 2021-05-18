@@ -24,12 +24,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /home/runner/toolchain
-          key: toolchain-cache
+          key: toolchain-${{ hashFiles('.github/scripts/toolchain.sh') }}
+          restore-keys: |
+            toolchain-
 
       - name: install toolchain
         if: steps.toolchain.outputs.cache-hit != 'true'
         run: .github/scripts/toolchain.sh
-      
+
       - name: cache ksource
         id: ksource
         uses: actions/cache@v2

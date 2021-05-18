@@ -25,7 +25,7 @@ dobuild() {
         echo "parsing kernel version failed, skip"
         return
     fi
-    
+
     #get last commit hash if kernel <= 4.4
     # if [ $kversion -eq 4 ] && [ $kpatchlevel -eq 4 ] || [ $kversion -eq 3 ] ; then
     #     #ktaghash=$(git -C $KSOURCE ls-remote --tags origin ${ktag} | sed -nr 's/^(.{9}).*$/\1/p')
@@ -50,7 +50,7 @@ dobuild() {
 
     #fetch ksource
     echo "###start checkout source"
-    git -C $KSOURCE fetch --depth 1 origin ${ktag}:${ktag}
+    git -C $KSOURCE fetch --depth 1 origin refs/tags/${ktag}:refs/tags/${ktag}
     git -C $KSOURCE checkout ${ktag}
 
     #set build flags and env
@@ -92,7 +92,7 @@ dobuild() {
     echo "###make ${device}_defconfig"
     $build ${device}_defconfig
     #get dirty
-    echo -e "CONFIG_IP_SET=m\nCONFIG_IP_SET_HASH_NET=m\nCONFIG_IP_SET_MAX=256\nCONFIG_NETFILTER_XT_SET=m" >>$KSOURCE/out/.config
+    echo -e "\nCONFIG_IP_SET=m\nCONFIG_IP_SET_HASH_NET=m\nCONFIG_IP_SET_MAX=256\nCONFIG_NETFILTER_XT_SET=m\n" >>$KSOURCE/out/.config
     $build olddefconfig
 
     #make modules_prepare
@@ -130,20 +130,21 @@ dobuild() {
 
 ##################### Main engines engaged #####################
 
-#set targets  
+#set targets
 ktarget=(
-    "redbull-11.0.0_r0.47"
-    "redbull-11.0.0_r0.66"
-    "sunfish-11.0.0_r0.45"
-    "sunfish-11.0.0_r0.64"
-    "floral-11.0.0_r0.44"
-    "floral-11.0.0_r0.62"
-    "bonito-11.0.0_r0.43"
-    "bonito-11.0.0_r0.60"
-    "b1c1-11.0.0_r0.42"
-    "b1c1-11.0.0_r0.58"
-    "wahoo-11.0.0_r0.34"
-    "marlin-10.0.0_r0.23"
+    "redbull+android-11.0.0_r0.47"
+    "redbull+android-11.0.0_r0.66"
+    "sunfish+android-11.0.0_r0.45"
+    "sunfish+android-11.0.0_r0.64"
+    "sunfish+android-s-beta-1_r0.4"
+    "floral+android-11.0.0_r0.44"
+    "floral+android-11.0.0_r0.62"
+    "bonito+android-11.0.0_r0.43"
+    "bonito+android-11.0.0_r0.60"
+    "b1c1+android-11.0.0_r0.42"
+    "b1c1+android-11.0.0_r0.58"
+    "wahoo+android-11.0.0_r0.34"
+    "marlin+android-10.0.0_r0.23"
 )
 
 #init ksource
@@ -155,8 +156,8 @@ count=0
 #do build for every target
 for k in "${ktarget[@]}"
 do
-    device=$(echo $k | cut -d "-" -f 1)
-    ktag="android-$(echo $k | cut -d "-" -f 2)"
+    device="$(echo $k | cut -d "+" -f 1)"
+    ktag="$(echo $k | cut -d "+" -f 2)"
     resetpath=$PATH
     dobuild
     PATH=$resetpath
