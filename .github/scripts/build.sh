@@ -26,17 +26,6 @@ dobuild() {
         return
     fi
 
-    #get last commit hash if kernel <= 4.4
-    # if [ $kversion -eq 4 ] && [ $kpatchlevel -eq 4 ] || [ $kversion -eq 3 ] ; then
-    #     #ktaghash=$(git -C $KSOURCE ls-remote --tags origin ${ktag} | sed -nr 's/^(.{9}).*$/\1/p')
-    #     ktaghash=$(git -C $KSOURCE ls-remote --tags origin "${ktag}^{}" | sed -nr 's/^(.{11}).*$/\1/p')
-    #     if [ -z $ktaghash ] ; then
-    #         echo "get remote tag hash failed, skip"
-    #         return
-    #     fi
-    #     kfullversion="${kfullversion}-g${ktaghash}"
-    # fi
-
     echo "###$k remote kernel version: $kfullversion"
 
     #check if exist
@@ -132,17 +121,12 @@ dobuild() {
 
 #set targets
 ktarget=(
-    "redbull+android-11.0.0_r0.47"
-    "redbull+android-11.0.0_r0.66"
-    "sunfish+android-11.0.0_r0.45"
-    "sunfish+android-11.0.0_r0.64"
+    "redbull+android-11.0.0_r0.86"
     "sunfish+android-s-beta-1_r0.4"
-    "floral+android-11.0.0_r0.44"
-    "floral+android-11.0.0_r0.62"
-    "bonito+android-11.0.0_r0.43"
-    "bonito+android-11.0.0_r0.60"
-    "b1c1+android-11.0.0_r0.42"
-    "b1c1+android-11.0.0_r0.58"
+    "sunfish+android-11.0.0_r0.85"
+    "floral+android-11.0.0_r0.84"
+    "bonito+android-11.0.0_r0.83"
+    "b1c1+android-11.0.0_r0.82"
     "wahoo+android-11.0.0_r0.34"
     "marlin+android-10.0.0_r0.23"
 )
