@@ -1,6 +1,6 @@
 id=pixel-kmod-ipset
 name=pixel-kmod-ipset
-version=v1.2
-versionCode=102
+version=v1.3
+versionCode=103
 author=et.
 description=install ipset kernel module for pixel phones

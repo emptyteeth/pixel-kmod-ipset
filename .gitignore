@@ -1,2 +1,4 @@
-/kmod/
 *.zip
+*.~
+/.vscode
+pack.sh

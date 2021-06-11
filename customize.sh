@@ -41,11 +41,12 @@ kmodinstall(){
 
   # detect curl
   icurl="curl"
-  if ! type curl >/dev/null 2>&1; then
+  if ! type curl >/dev/null 2>&1 ; then
     unzip -j -o "${ZIPFILE}" 'binary/curl' -d ${TMPDIR} >&2
     chmod 755 ${TMPDIR}/curl
     icurl="${TMPDIR}/curl"
   fi
+  icurl="$icurl --retry 2 --connect-timeout 5 --dns-servers 1.1.1.1"
 
   #check if pre-compiled kmod available
   ui_print "codename: $myprod"
