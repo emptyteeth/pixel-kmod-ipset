@@ -122,7 +122,7 @@ dobuild() {
 #set targets
 ktarget=(
     "redbull+android-11.0.0_r0.86"
-    "sunfish+android-s-beta-2_r0.4"
+    "sunfish+android-s-beta-3_r0.4"
     "sunfish+android-11.0.0_r0.85"
     "floral+android-11.0.0_r0.84"
     "bonito+android-11.0.0_r0.83"
